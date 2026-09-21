@@ -458,4 +458,9 @@ Engineering Student — Computers and Systems Engineering
 
 This project is intended primarily for educational purposes and embedded-systems development.
 
+This project also uses the official ATmega32 documentation provided by
+Microchip Technology.
+
+Datasheet link: `https://ww1.microchip.com/downloads/en/DeviceDoc/doc2503.pdf`
+
 See the `LICENSE` file for more information.

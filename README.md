@@ -236,7 +236,7 @@ ATmega32-Drivers/
 | Keypad        | 🚧 In Progress |
 | LED           | ✅ Implemented |
 | Button        | ✅ Implemented |
-| Seven Segment | 🚧 In Progress |
+| Seven Segment | ✅ Implemented |
 | DC Motor      | ⬜ Planned |
 | Servo Motor   | ⬜ Planned |
 | Buzzer        | ✅ Implemented |

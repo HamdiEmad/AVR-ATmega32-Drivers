@@ -34,6 +34,7 @@ SSD_errorStatus SSD_enumInitialize(SSD_t *seg);
 SSD_errorStatus SSD_enumWriteData(SSD_t *seg, uint8 data);
 SSD_errorStatus SSD_enumTurnOff(SSD_t *seg);
 SSD_errorStatus SSD_enumTurnOn(SSD_t *seg);
+SSD_errorStatus SSD_enumWriteDataBCD(SSD_t *seg, uint8 nipple, uint8 data);
 
 
 #endif /* HAL_SSD_SSD_INTERFACE_H_ */

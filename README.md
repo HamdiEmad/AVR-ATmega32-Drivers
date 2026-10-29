@@ -232,7 +232,7 @@ ATmega32-Drivers/
 
 | Driver        | Status    |
 | ------------- | --------- |
-| LCD           | ⬜ Planned |
+| LCD           | ✅ Implemented |
 | Keypad        | 🚧 In Progress |
 | LED           | ✅ Implemented |
 | Button        | ✅ Implemented |

@@ -38,7 +38,7 @@ typedef enum {
 	CLCD_INVALID_POSITION
 }CLCD_errorStatus;
 
-void CLCD_initialize(void);
+void CLCD_voidInitialize(void);
 CLCD_errorStatus CLCD_enumSendCommand(uint8 cmd);
 CLCD_errorStatus CLCD_enumSendData(uint8 data);
 CLCD_errorStatus CLCD_enumSendString(const uint8 *str);

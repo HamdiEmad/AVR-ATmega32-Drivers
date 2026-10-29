@@ -13,9 +13,12 @@
 #include "CLCD_interface.h"
 #include "CLCD_extrachar.h"
 
+static uint8 ROW = 1;
+static uint8 COL = 1;
+
 static CLCD_errorStatus CLCD_enumSendFallingEdge(void);
 
-void CLCD_initialize(void)
+void CLCD_voidInitialize(void)
 {
 		_delay_ms(50);
 		DIO_enumInitializePin(CLCD_RS_PORT, CLCD_RS_PIN, DIO_OUTPUT);
@@ -148,6 +151,8 @@ CLCD_errorStatus CLCD_enumSendNumber(uint64 number)
 		}
 	}
 
+	CLCD_enumSetCursor(ROW, COL);
+
 	return status;
 }
 
@@ -170,6 +175,8 @@ CLCD_errorStatus CLCD_enumSendString(const uint8 *str)
 			if (CLCD_enumSendData(str[counter++]))
 				status = CLCD_NOK;
 	}
+
+	CLCD_enumSetCursor(ROW, COL);
 
 	return status;
 }
@@ -197,6 +204,9 @@ CLCD_errorStatus CLCD_enumSetCursor(uint8 row, uint8 col)
 
 	_delay_ms(1);
 
+	COL = col;
+	ROW = row;
+
 	return status;
 }
 
@@ -217,6 +227,9 @@ CLCD_errorStatus CLCD_enumCreateCustomChar(uint8 row, uint8 col, uint8 *ch)
 	for (uint8 it = 0; it < 8; it++)
 		if (CLCD_enumSendData(it))
 			status = CLCD_NOK;
+
+	ROW = row;
+	COL = col;
 
 	return status;
 }

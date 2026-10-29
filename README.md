@@ -220,9 +220,9 @@ ATmega32-Drivers/
 | ------------------ | -------------- |
 | DIO                | ✅ Implemented |
 | Timer/Counter      | 🚧 In Progress |
-| External Interrupt | 🚧 In Progress |
+| External Interrupt | ✅ Implemented |
 | USART              | ⬜ Planned     |
-| ADC                | ⬜ Planned     |
+| ADC                | 🚧 In Progress |
 | SPI                | ⬜ Planned     |
 | TWI                | ⬜ Planned     |
 | EEPROM             | 🚧 In Progress |

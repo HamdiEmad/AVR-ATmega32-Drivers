@@ -233,7 +233,7 @@ ATmega32-Drivers/
 | Driver        | Status    |
 | ------------- | --------- |
 | LCD           | ✅ Implemented |
-| Keypad        | 🚧 In Progress |
+| Keypad        | ✅ Implemented |
 | LED           | ✅ Implemented |
 | Button        | ✅ Implemented |
 | Seven Segment | ✅ Implemented |

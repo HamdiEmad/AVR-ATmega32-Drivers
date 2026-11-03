@@ -222,7 +222,7 @@ ATmega32-Drivers/
 | Timer/Counter      | 🚧 In Progress |
 | External Interrupt | ✅ Implemented |
 | USART              | ⬜ Planned     |
-| ADC                | 🚧 In Progress |
+| ADC                | ✅ Implemented |
 | SPI                | ⬜ Planned     |
 | TWI                | ⬜ Planned     |
 | EEPROM             | 🚧 In Progress |

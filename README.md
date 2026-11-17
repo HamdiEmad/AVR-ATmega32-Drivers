@@ -219,14 +219,15 @@ ATmega32-Drivers/
 | Driver             | Status         |
 | ------------------ | -------------- |
 | DIO                | ✅ Implemented |
-| Timer/Counter      | 🚧 In Progress |
+| Timer/Counter      | ✅ Implemented |
 | External Interrupt | ✅ Implemented |
 | USART              | ⬜ Planned     |
 | ADC                | ✅ Implemented |
 | SPI                | ⬜ Planned     |
 | TWI                | ⬜ Planned     |
 | EEPROM             | 🚧 In Progress |
-| Watchdog Timer     | ⬜ Planned     |
+| Watchdog Timer     | ✅ Implemented |
+| GIE                | 🚧 In Progress |
 
 ### HAL
 

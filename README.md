@@ -182,6 +182,7 @@ ATmega32-Drivers/
 │   ├── SPI/
 │   ├── TWI/
 │   ├── EXTI/
+|   ├── GIE/
 │   └── EEPROM/
 │
 ├── HAL/
@@ -227,7 +228,7 @@ ATmega32-Drivers/
 | TWI                | ⬜ Planned     |
 | EEPROM             | 🚧 In Progress |
 | Watchdog Timer     | ✅ Implemented |
-| GIE                | 🚧 In Progress |
+| GIE                | ✅ Implemented |
 
 ### HAL
 

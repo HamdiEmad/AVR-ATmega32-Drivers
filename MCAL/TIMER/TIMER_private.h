@@ -78,6 +78,13 @@
 // Watchdog Timer Registers
 #define WDTCR *((volatile uint8 *)0x41)
 
+// WDTCR bits
+#define WDP0 0
+#define WDP1 1
+#define WDP2 2
+#define WDE 3
+#define WDTOE 4
+
 // Interrupt Registers
 #define TIMSK *((volatile uint8 *)0x59)
 

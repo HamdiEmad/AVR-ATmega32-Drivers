@@ -110,6 +110,16 @@
 #define OC2_CLEAR_ON_COMPARE_MATCH 2 // Non-inverting
 #define OC2_SET_ON_COMPARE_MATCH 3  // Inverting
 
+// Watchdog Timer prescaler configuration
+#define WDT_PRESCALER_16_3_MS 0
+#define WDT_PRESCALER_32_5_MS 1
+#define WDT_PRESCALER_65_MS 2
+#define WDT_PRESCALER_0_13_S 3
+#define WDT_PRESCALER_0_26_S 4
+#define WDT_PRESCALER_0_52_S 5
+#define WDT_PRESCALER_1_S 6
+#define WDT_PRESCALER_2_1_S 7
+
 typedef enum
 {
     TIMER_OK,

@@ -796,6 +796,34 @@ TIMER_errorStatus TIMER_enumSetCallBack(void (*ptr)(void), uint8 timer_id)
 }
 
 
+void TIMER_voidWDTSleep(void)
+{
+    // Clear watchdog timer prescaler
+    CLR_BIT(WDTCR, WDP0);
+    CLR_BIT(WDTCR, WDP1);
+    CLR_BIT(WDTCR, WDP2);
+
+    #if WDT_PRESCALER >= WDT_PRESCALER_16_3_MS && WDT_PRESCALER <= WDT_PRESCALER_2_1_S
+        // Set watchdog timer prescaler
+        WDTCR |= WDT_PRESCALER;
+    #else
+        #error "INVALID WATCHDOG TIMER PRESCALER!"
+    #endif
+}
+
+void TIMER_voidWDTEnable (void)
+{
+    SET_BIT(WDTCR, WDE); // Enable watchdog timer
+}
+
+void TIMER_voidWDTDisable(void)
+{
+    // Disable watchdog timer
+    WDTCR |= (1 << WDTOE) | (1 << WDE);
+    WDTCR = 0;
+}
+
+
 
 // TIMER2 output compare match ISR
 void __vector_4(void) __attribute__((signal));

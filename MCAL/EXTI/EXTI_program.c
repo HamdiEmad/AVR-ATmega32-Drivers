@@ -74,20 +74,20 @@ EXTI_errorStatus EXTI_enumSetSignalLatch(uint8 mode, uint8 line)
         switch (mode)
         {
         case EXTI_LOW_LEVEL:
-            CLR_BIT(MCUCR, line);
-            CLR_BIT(MCUCR, line + 1);
+            CLR_BIT(MCUCR, copy_line);
+            CLR_BIT(MCUCR, copy_line + 1);
             break;
         case EXTI_ON_CHANGE:
-            SET_BIT(MCUCR, line);
-            CLR_BIT(MCUCR, line + 1);
+            SET_BIT(MCUCR, copy_line);
+            CLR_BIT(MCUCR, copy_line + 1);
             break;
         case EXTI_FALLING_EDGE:
-            CLR_BIT(MCUCR, line);
-            SET_BIT(MCUCR, line + 1);
+            CLR_BIT(MCUCR, copy_line);
+            SET_BIT(MCUCR, copy_line + 1);
             break;
         case EXTI_RISING_EDGE:
-            SET_BIT(MCUCR, line);
-            SET_BIT(MCUCR, line + 1);
+            SET_BIT(MCUCR, copy_line);
+            SET_BIT(MCUCR, copy_line + 1);
             break;
         default:
             status = EXTI_INVALID_MODE;

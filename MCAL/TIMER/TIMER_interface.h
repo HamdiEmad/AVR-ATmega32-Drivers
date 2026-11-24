@@ -43,8 +43,8 @@
 #define TIMER1_MODE_FAST_PWM_10BIT 7
 #define TIMER1_MODE_PHASE_FREQUENCY_CORRECT_PWM_ICR1 8
 #define TIMER1_MODE_PHASE_FREQUENCY_CORRECT_PWM_OCR1A 9
-#define TIMER1_MODE_PHASE_CORRECT_PWM_ICR1 11
-#define TIMER1_MODE_PHASE_CORRECT_PWM_OCR1A 10
+#define TIMER1_MODE_PHASE_CORRECT_PWM_ICR1 10
+#define TIMER1_MODE_PHASE_CORRECT_PWM_OCR1A 11
 #define TIMER1_MODE_CTC_ICR1 12
 #define TIMER1_MODE_FAST_PWM_ICR1 14
 #define TIMER1_MODE_FAST_PWM_OCR1A 15
@@ -70,21 +70,21 @@
 
 #define TIMER1_PRESCALER_NO_CLOCK 0
 #define TIMER1_PRESCALER_NO_PRESCALER 1
-#define TIMER1_PRESCALER_8 2
-#define TIMER1_PRESCALER_64 3
-#define TIMER1_PRESCALER_256 4
-#define TIMER1_PRESCALER_1024 5
+#define TIMER1_PRESCALER_8 8
+#define TIMER1_PRESCALER_64 64
+#define TIMER1_PRESCALER_256 256
+#define TIMER1_PRESCALER_1024 1024
 #define TIMER1_PRESCALER_EXTERNAL_FALLING 6
 #define TIMER1_PRESCALER_EXTERNAL_RISING 7
 
 #define TIMER2_PRESCALER_NO_CLOCK 0
 #define TIMER2_PRESCALER_NO_PRESCALER 1
-#define TIMER2_PRESCALER_8 2
-#define TIMER2_PRESCALER_32 3
-#define TIMER2_PRESCALER_64 4
-#define TIMER2_PRESCALER_128 5
-#define TIMER2_PRESCALER_256 6
-#define TIMER2_PRESCALER_1024 7
+#define TIMER2_PRESCALER_8 8
+#define TIMER2_PRESCALER_32 32
+#define TIMER2_PRESCALER_64 64
+#define TIMER2_PRESCALER_128 128
+#define TIMER2_PRESCALER_256 256
+#define TIMER2_PRESCALER_1024 1024
 
 // OC0 pin configuration
 #define OC0_DISCONNECTED 0
@@ -127,6 +127,8 @@ typedef enum
     TIMER_INVALID_NUMBER,
     TIMER_INVALID_VALUE,
     TIMER_INVALID_PRESCALER,
+    TIMER_INVALID_MODE,
+    TIMER_INVALID_CONFIGURATION,
     TIMER_NULL_POINTER
 } TIMER_errorStatus;
 
@@ -135,6 +137,7 @@ void TIMER0_voidSetPreload(uint8 timer_preload);
 void TIMER0_voidSetCTC(uint8 value);
 TIMER_errorStatus TIMER0_enumGetTimerCounterValue(uint8 *timer_preload);
 void TIMER0_voidStopTimer(void);
+TIMER_errorStatus TIMER0_enumSetDutyCycle(uint8 duty_cycle);
 
 void TIMER1_voidInit(void);
 void TIMER1_voidSetPreload(uint16 timer_preload);
@@ -148,12 +151,16 @@ TIMER_errorStatus TIMER1_enumSetTriggerEdge(uint8 icu_edge);
 void TIMER1_voidEnableICUInterrupt(void);
 void TIMER1_voidDisableICUInterrupt(void);
 TIMER_errorStatus TIMER1_enumGetICRValue(uint16 *icr_value);
+TIMER_errorStatus TIMER1_enumSetDutyCycleA(uint8 duty_cycle);
+TIMER_errorStatus TIMER1_enumSetDutyCycleB(uint8 duty_cycle);
+TIMER_errorStatus TIMER1_enumSetPWM(uint32 freq, uint8 duty_cycle);
 
 void TIMER2_voidInit(void);
 void TIMER2_voidSetPreload(uint8 timer_preload);
 void TIMER2_voidSetCTC(uint8 value);
 TIMER_errorStatus TIMER2_enumGetTimerCounterValue(uint8 *timer_preload);
 void TIMER2_voidStopTimer(void);
+TIMER_errorStatus TIMER2_enumSetDutyCycle(uint8 duty_cycle);
 
 TIMER_errorStatus TIMER_enumSetCallBack(void (*ptr)(void), uint8 timer_id);
 

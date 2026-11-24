@@ -12,6 +12,8 @@
 #include "TIMER_private.h"
 #include "TIMER_config.h"
 
+#include "MCAL/DIO/DIO_interface.h"
+
 static void (*callBacks[12])(void) = {NULL};
 
 void TIMER0_voidInit(void)
@@ -40,7 +42,7 @@ void TIMER0_voidInit(void)
         SET_BIT(TCCR0, CS01);
         SET_BIT(TCCR0, CS02);
     #else
-        #error "INVALID TIMER PRESCALER!"
+    #error "INVALID TIMER PRESCALER!"
     #endif
 
     // Set TIMER0 mode
@@ -51,24 +53,21 @@ void TIMER0_voidInit(void)
         #if OC0_CONFIGURATION == OC0_DISCONNECTED
             CLR_BIT(TCCR0, COM00);
             CLR_BIT(TCCR0, COM01);
-        #elif OC0_CONFIGURATION == OC0_TOGGLE_ON_COMPARE_MATCH
-            SET_BIT(TCCR0, COM00);
-            CLR_BIT(TCCR0, COM01);
-        #elif OC0_CONFIGURATION == OC0_CLEAR_ON_COMPARE_MATCH
-            CLR_BIT(TCCR0, COM00);
-            SET_BIT(TCCR0, COM01);
-        #elif OC0_CONFIGURATION == OC0_SET_ON_COMPARE_MATCH
-            SET_BIT(TCCR0, COM00);
-            SET_BIT(TCCR0, COM01);
         #else
-            #error "INVALID OC0 PIN CONFIGURATION"
-        #endif
-        #if TIMER0_OVERFLOW_INTERRUPT == ENABLE
-            SET_BIT(TIMSK, TOIE0); // Enable TIMER0 overflow interrupt
-        #elif TIMER0_OVERFLOW_INTERRUPT == DISABLE
-            CLR_BIT(TIMSK, TOIE0); // Disable TIMER0 overflow interrupt
-        #else
-            #error "INVALID TIMER0 OVERFLOW INTERRUPT CONFIGURATION!"
+            DIO_enumInitializePin(DIO_PORTB, DIO_PIN3, DIO_OUTPUT);
+
+            #if OC0_CONFIGURATION == OC0_TOGGLE_ON_COMPARE_MATCH
+                SET_BIT(TCCR0, COM00);
+                CLR_BIT(TCCR0, COM01);
+            #elif OC0_CONFIGURATION == OC0_CLEAR_ON_COMPARE_MATCH
+                CLR_BIT(TCCR0, COM00);
+                SET_BIT(TCCR0, COM01);
+            #elif OC0_CONFIGURATION == OC0_SET_ON_COMPARE_MATCH
+                SET_BIT(TCCR0, COM00);
+                SET_BIT(TCCR0, COM01);
+            #else
+                #error "INVALID OC0 PIN CONFIGURATION"
+            #endif
         #endif
 
     #elif TIMER0_MODE == TIMER0_MODE_PHASE_CORRECT_PWM
@@ -78,21 +77,18 @@ void TIMER0_voidInit(void)
         #if OC0_CONFIGURATION == OC0_DISCONNECTED
             CLR_BIT(TCCR0, COM00);
             CLR_BIT(TCCR0, COM01);
-        #elif OC0_CONFIGURATION == OC0_CLEAR_ON_COMPARE_MATCH
-            CLR_BIT(TCCR0, COM00);
-            SET_BIT(TCCR0, COM01);
-        #elif OC0_CONFIGURATION == OC0_SET_ON_COMPARE_MATCH
-            SET_BIT(TCCR0, COM00);
-            SET_BIT(TCCR0, COM01);
         #else
-            #error "INVALID OC0 PIN CONFIGURATION"
-        #endif
-        #if TIMER0_COMPARE_MATCH_INTERRUPT == ENABLE
-            SET_BIT(TIMSK, OCIE0); // Enable TIMER0 output compare match interrupt
-        #elif TIMER0_COMPARE_MATCH_INTERRUPT == DISABLE
-            CLR_BIT(TIMSK, OCIE0); // Disable TIMER0 output compare match interrupt
-        #else
-            #error "INVALID TIMER0 COMPARE MATCH INTERRUPT CONFIGURATION!"
+            DIO_enumInitializePin(DIO_PORTB, DIO_PIN3, DIO_OUTPUT);
+
+            #if OC0_CONFIGURATION == OC0_CLEAR_ON_COMPARE_MATCH
+                CLR_BIT(TCCR0, COM00);
+                SET_BIT(TCCR0, COM01);
+            #elif OC0_CONFIGURATION == OC0_SET_ON_COMPARE_MATCH
+                SET_BIT(TCCR0, COM00);
+                SET_BIT(TCCR0, COM01);
+            #else
+                #error "INVALID OC0 PIN CONFIGURATION"
+            #endif
         #endif
 
     #elif TIMER0_MODE == TIMER0_MODE_CTC
@@ -102,24 +98,21 @@ void TIMER0_voidInit(void)
         #if OC0_CONFIGURATION == OC0_DISCONNECTED
             CLR_BIT(TCCR0, COM00);
             CLR_BIT(TCCR0, COM01);
-        #elif OC0_CONFIGURATION == OC0_TOGGLE_ON_COMPARE_MATCH
-            SET_BIT(TCCR0, COM00);
-            CLR_BIT(TCCR0, COM01);
-        #elif OC0_CONFIGURATION == OC0_CLEAR_ON_COMPARE_MATCH
-            CLR_BIT(TCCR0, COM00);
-            SET_BIT(TCCR0, COM01);
-        #elif OC0_CONFIGURATION == OC0_SET_ON_COMPARE_MATCH
-            SET_BIT(TCCR0, COM00);
-            SET_BIT(TCCR0, COM01);
         #else
-            #error "INVALID OC0 PIN CONFIGURATION"
-        #endif
-        #if TIMER0_COMPARE_MATCH_INTERRUPT == ENABLE
-            SET_BIT(TIMSK, OCIE0); // Enable TIMER0 output compare match interrupt
-        #elif TIMER0_COMPARE_MATCH_INTERRUPT == DISABLE
-            CLR_BIT(TIMSK, OCIE0); // Disable TIMER0 output compare match interrupt
-        #else
-            #error "INVALID TIMER0 COMPARE MATCH INTERRUPT CONFIGURATION!"
+            DIO_enumInitializePin(DIO_PORTB, DIO_PIN3, DIO_OUTPUT);
+
+            #if OC0_CONFIGURATION == OC0_TOGGLE_ON_COMPARE_MATCH
+                SET_BIT(TCCR0, COM00);
+                CLR_BIT(TCCR0, COM01);
+            #elif OC0_CONFIGURATION == OC0_CLEAR_ON_COMPARE_MATCH
+                CLR_BIT(TCCR0, COM00);
+                SET_BIT(TCCR0, COM01);
+            #elif OC0_CONFIGURATION == OC0_SET_ON_COMPARE_MATCH
+                SET_BIT(TCCR0, COM00);
+                SET_BIT(TCCR0, COM01);
+            #else
+                #error "INVALID OC0 PIN CONFIGURATION"
+            #endif
         #endif
 
     #elif TIMER0_MODE == TIMER0_MODE_FAST_PWM
@@ -129,27 +122,42 @@ void TIMER0_voidInit(void)
         #if OC0_CONFIGURATION == OC0_DISCONNECTED
             CLR_BIT(TCCR0, COM00);
             CLR_BIT(TCCR0, COM01);
-        #elif OC0_CONFIGURATION == OC0_CLEAR_ON_COMPARE_MATCH
-            CLR_BIT(TCCR0, COM00);
-            SET_BIT(TCCR0, COM01);
-        #elif OC0_CONFIGURATION == OC0_SET_ON_COMPARE_MATCH
-            SET_BIT(TCCR0, COM00);
-            SET_BIT(TCCR0, COM01);
         #else
-            #error "INVALID OC0 PIN CONFIGURATION"
-        #endif
-        #if TIMER0_COMPARE_MATCH_INTERRUPT == ENABLE
-            SET_BIT(TIMSK, OCIE0); // Enable TIMER0 output compare match interrupt
-        #elif TIMER0_COMPARE_MATCH_INTERRUPT == DISABLE
-            CLR_BIT(TIMSK, OCIE0); // Disable TIMER0 output compare match interrupt
-        #else
-            #error "INVALID TIMER0 COMPARE MATCH INTERRUPT CONFIGURATION!"
-        #endif
-        #else
-            #error "INVALID TIMER MODE!"
-        #endif
+            DIO_enumInitializePin(DIO_PORTB, DIO_PIN3, DIO_OUTPUT);
 
-        SET_BIT(SREG, 7); // Enable global interrupts
+            #if OC0_CONFIGURATION == OC0_CLEAR_ON_COMPARE_MATCH
+                CLR_BIT(TCCR0, COM00);
+                SET_BIT(TCCR0, COM01);
+            #elif OC0_CONFIGURATION == OC0_SET_ON_COMPARE_MATCH
+                SET_BIT(TCCR0, COM00);
+                SET_BIT(TCCR0, COM01);
+            #else
+                #error "INVALID OC0 PIN CONFIGURATION"
+            #endif
+        #endif
+    #else
+        #error "INVALID TIMER MODE!"
+    #endif
+
+    // Set TIMER0 overflow interrupt
+    #if TIMER0_OVERFLOW_INTERRUPT == ENABLE
+        SET_BIT(TIMSK, TOIE0); // Enable TIMER0 overflow interrupt
+    #elif TIMER0_OVERFLOW_INTERRUPT == DISABLE
+        CLR_BIT(TIMSK, TOIE0); // Disable TIMER0 overflow interrupt
+    #else
+    #error "INVALID TIMER0 OVERFLOW INTERRUPT CONFIGURATION!"
+    #endif
+
+    // Set TIMER0 compare match interrupt
+    #if TIMER0_COMPARE_MATCH_INTERRUPT == ENABLE
+        SET_BIT(TIMSK, OCIE0); // Enable TIMER0 output compare match interrupt
+    #elif TIMER0_COMPARE_MATCH_INTERRUPT == DISABLE
+        CLR_BIT(TIMSK, OCIE0); // Disable TIMER0 output compare match interrupt
+    #else
+    #error "INVALID TIMER0 COMPARE MATCH INTERRUPT CONFIGURATION!"
+    #endif
+
+    SET_BIT(SREG, 7); // Enable global interrupts
 }
 
 void TIMER0_voidSetPreload(uint8 timer_preload)
@@ -181,7 +189,25 @@ void TIMER0_voidStopTimer(void)
     CLR_BIT(TCCR0, CS02);
 }
 
+TIMER_errorStatus TIMER0_enumSetDutyCycle(uint8 duty_cycle)
+{
+    TIMER_errorStatus status = TIMER_OK;
 
+    if (duty_cycle <= 100)
+    {
+        #if OC0_CONFIGURATION == OC0_CLEAR_ON_COMPARE_MATCH
+            OCR0 = (duty_cycle == 0) ? 0 : 2.56 * duty_cycle - 1; // Non-inverting mode
+        #elif OC0_CONFIGURATION == OC0_SET_ON_COMPARE_MATCH
+            OCR0 = (duty_cycle == 100) ? 100 : 2.56 * (100 - duty_cycle) - 1; // Inverting mode
+        #else
+            status = TIMER_INVALID_VALUE; // Invalid OC0 configuration for PWM
+        #endif
+    }
+    else
+        status = TIMER_INVALID_VALUE;
+
+    return status;
+}
 
 void TIMER1_voidInit(void)
 {
@@ -219,7 +245,7 @@ void TIMER1_voidInit(void)
         SET_BIT(TCCR1B, CS11);
         SET_BIT(TCCR1B, CS12);
     #else
-    #error "INVALID TIMER1 PRESCALER!"
+        #error "INVALID TIMER1 PRESCALER!"
     #endif
 
     // TIMER1 mode configuration
@@ -235,11 +261,13 @@ void TIMER1_voidInit(void)
             CLR_BIT(TCCR1A, WGM11);
             SET_BIT(TCCR1B, WGM12);
             CLR_BIT(TCCR1B, WGM13);
+            OCR1A = 32767;
         #elif TIMER1_MODE == TIMER1_MODE_CTC_ICR1
             CLR_BIT(TCCR1A, WGM10);
             CLR_BIT(TCCR1A, WGM11);
             SET_BIT(TCCR1B, WGM12);
             SET_BIT(TCCR1B, WGM13);
+            ICR1 = 32767;
             // Set input capture edge selection
             #if TIMER1_ICU_EDGE_SELECT == TIMER1_ICU_FALLING_EDGE
                 CLR_BIT(TCCR1B, ICES1);
@@ -255,12 +283,15 @@ void TIMER1_voidInit(void)
             CLR_BIT(TCCR1A, COM1A0);
             CLR_BIT(TCCR1A, COM1A1);
         #elif OC1A_CONFIGURATION == OC1A_TOGGLE_ON_COMPARE_MATCH
+            DIO_enumInitializePin(DIO_PORTD, DIO_PIN5, DIO_OUTPUT);
             SET_BIT(TCCR1A, COM1A0);
             CLR_BIT(TCCR1A, COM1A1);
         #elif OC1A_CONFIGURATION == OC1A_CLEAR_ON_COMPARE_MATCH
+            DIO_enumInitializePin(DIO_PORTD, DIO_PIN5, DIO_OUTPUT);
             CLR_BIT(TCCR1A, COM1A0);
             SET_BIT(TCCR1A, COM1A1);
         #elif OC1A_CONFIGURATION == OC1A_SET_ON_COMPARE_MATCH
+            DIO_enumInitializePin(DIO_PORTD, DIO_PIN5, DIO_OUTPUT);
             SET_BIT(TCCR1A, COM1A0);
             SET_BIT(TCCR1A, COM1A1);
         #else
@@ -271,12 +302,15 @@ void TIMER1_voidInit(void)
             CLR_BIT(TCCR1A, COM1B0);
             CLR_BIT(TCCR1A, COM1B1);
         #elif OC1B_CONFIGURATION == OC1B_TOGGLE_ON_COMPARE_MATCH
+            DIO_enumInitializePin(DIO_PORTD, DIO_PIN4, DIO_INPUT);
             SET_BIT(TCCR1A, COM1B0);
             CLR_BIT(TCCR1A, COM1B1);
         #elif OC1B_CONFIGURATION == OC1B_CLEAR_ON_COMPARE_MATCH
+            DIO_enumInitializePin(DIO_PORTD, DIO_PIN4, DIO_INPUT);
             CLR_BIT(TCCR1A, COM1B0);
             SET_BIT(TCCR1A, COM1B1);
         #elif OC1B_CONFIGURATION == OC1B_SET_ON_COMPARE_MATCH
+            DIO_enumInitializePin(DIO_PORTD, DIO_PIN4, DIO_INPUT);
             SET_BIT(TCCR1A, COM1B0);
             SET_BIT(TCCR1A, COM1B1);
         #else
@@ -289,36 +323,47 @@ void TIMER1_voidInit(void)
             CLR_BIT(TCCR1A, WGM11);
             CLR_BIT(TCCR1B, WGM12);
             SET_BIT(TCCR1B, WGM13);
+            ICR1 = 32767;
         #elif TIMER1_MODE == TIMER1_MODE_PHASE_FREQUENCY_CORRECT_PWM_OCR1A
             SET_BIT(TCCR1A, WGM10);
             CLR_BIT(TCCR1A, WGM11);
             CLR_BIT(TCCR1B, WGM12);
             SET_BIT(TCCR1B, WGM13);
+            OCR1A = 32767;
         #elif TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_ICR1
             CLR_BIT(TCCR1A, WGM10);
             SET_BIT(TCCR1A, WGM11);
             CLR_BIT(TCCR1B, WGM12);
             SET_BIT(TCCR1B, WGM13);
+            ICR1 = 0xFFFF;
+            OCR1A = 32767;
         #elif TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_OCR1A
             SET_BIT(TCCR1A, WGM10);
             SET_BIT(TCCR1A, WGM11);
             CLR_BIT(TCCR1B, WGM12);
             SET_BIT(TCCR1B, WGM13);
+            OCR1A = 0xFF00;
         #elif TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_8BIT
             SET_BIT(TCCR1A, WGM10);
             CLR_BIT(TCCR1A, WGM11);
             CLR_BIT(TCCR1B, WGM12);
             CLR_BIT(TCCR1B, WGM13);
+            OCR1A = 127;
+            OCR1B = 127;
         #elif TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_9BIT
             CLR_BIT(TCCR1A, WGM10);
             SET_BIT(TCCR1A, WGM11);
             CLR_BIT(TCCR1B, WGM12);
             CLR_BIT(TCCR1B, WGM13);
+            OCR1A = 255;
+            OCR1B = 255;
         #elif TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_10BIT
             SET_BIT(TCCR1A, WGM10);
             SET_BIT(TCCR1A, WGM11);
             CLR_BIT(TCCR1B, WGM12);
             CLR_BIT(TCCR1B, WGM13);
+            OCR1A = 511;
+            OCR1B = 511;
         #else
         #endif
         #if TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_ICR1 || TIMER1_MODE == TIMER1_MODE_PHASE_FREQUENCY_CORRECT_PWM_ICR1
@@ -337,9 +382,11 @@ void TIMER1_voidInit(void)
             CLR_BIT(TCCR1A, COM1A0);
             CLR_BIT(TCCR1A, COM1A1);
         #elif OC1A_CONFIGURATION == OC1A_CLEAR_ON_COMPARE_MATCH
+            DIO_enumInitializePin(DIO_PORTD, DIO_PIN5, DIO_OUTPUT);
             CLR_BIT(TCCR1A, COM1A0);
             SET_BIT(TCCR1A, COM1A1);
         #elif OC1A_CONFIGURATION == OC1A_SET_ON_COMPARE_MATCH
+            DIO_enumInitializePin(DIO_PORTD, DIO_PIN5, DIO_OUTPUT);
             SET_BIT(TCCR1A, COM1A0);
             SET_BIT(TCCR1A, COM1A1);
         #else
@@ -350,9 +397,11 @@ void TIMER1_voidInit(void)
             CLR_BIT(TCCR1A, COM1B0);
             CLR_BIT(TCCR1A, COM1B1);
         #elif OC1B_CONFIGURATION == OC1B_CLEAR_ON_COMPARE_MATCH
+            DIO_enumInitializePin(DIO_PORTD, DIO_PIN4, DIO_OUTPUT);
             CLR_BIT(TCCR1A, COM1B0);
             SET_BIT(TCCR1A, COM1B1);
         #elif OC1B_CONFIGURATION == OC1B_SET_ON_COMPARE_MATCH
+            DIO_enumInitializePin(DIO_PORTD, DIO_PIN4, DIO_OUTPUT);
             SET_BIT(TCCR1A, COM1B0);
             SET_BIT(TCCR1A, COM1B1);
         #else
@@ -365,21 +414,28 @@ void TIMER1_voidInit(void)
             CLR_BIT(TCCR1A, WGM11);
             SET_BIT(TCCR1B, WGM12);
             CLR_BIT(TCCR1B, WGM13);
+            OCR1A = 127;
+            OCR1B = 127;
         #elif TIMER1_MODE == TIMER1_MODE_FAST_PWM_9BIT
             CLR_BIT(TCCR1A, WGM10);
             SET_BIT(TCCR1A, WGM11);
             SET_BIT(TCCR1B, WGM12);
             CLR_BIT(TCCR1B, WGM13);
+            OCR1A = 255;
+            OCR1B = 255;
         #elif TIMER1_MODE == TIMER1_MODE_FAST_PWM_10BIT
             SET_BIT(TCCR1A, WGM10);
             SET_BIT(TCCR1A, WGM11);
             SET_BIT(TCCR1B, WGM12);
             CLR_BIT(TCCR1B, WGM13);
+            OCR1A = 511;
+            OCR1B = 511;
         #elif TIMER1_MODE == TIMER1_MODE_FAST_PWM_ICR1
             CLR_BIT(TCCR1A, WGM10);
             SET_BIT(TCCR1A, WGM11);
             SET_BIT(TCCR1B, WGM12);
             SET_BIT(TCCR1B, WGM13);
+            ICR1 = 511;
             // Set input capture edge selection
             #if TIMER1_ICU_EDGE_SELECT == TIMER1_ICU_FALLING_EDGE
                 CLR_BIT(TCCR1B, ICES1);
@@ -393,6 +449,7 @@ void TIMER1_voidInit(void)
             SET_BIT(TCCR1A, WGM11);
             SET_BIT(TCCR1B, WGM12);
             SET_BIT(TCCR1B, WGM13);
+            OCR1A = 511;
         #else
         #endif
         // Set OC1A configuration
@@ -400,9 +457,11 @@ void TIMER1_voidInit(void)
             CLR_BIT(TCCR1A, COM1A0);
             CLR_BIT(TCCR1A, COM1A1);
         #elif OC1A_CONFIGURATION == OC1A_CLEAR_ON_COMPARE_MATCH
+            DIO_enumInitializePin(DIO_PORTD, DIO_PIN5, DIO_OUTPUT);
             CLR_BIT(TCCR1A, COM1A0);
             SET_BIT(TCCR1A, COM1A1);
         #elif OC1A_CONFIGURATION == OC1A_SET_ON_COMPARE_MATCH
+            DIO_enumInitializePin(DIO_PORTD, DIO_PIN5, DIO_OUTPUT);
             SET_BIT(TCCR1A, COM1A0);
             SET_BIT(TCCR1A, COM1A1);
         #else
@@ -413,9 +472,11 @@ void TIMER1_voidInit(void)
             CLR_BIT(TCCR1A, COM1B0);
             CLR_BIT(TCCR1A, COM1B1);
         #elif OC1B_CONFIGURATION == OC1B_CLEAR_ON_COMPARE_MATCH
+            DIO_enumInitializePin(DIO_PORTD, DIO_PIN4, DIO_OUTPUT);
             CLR_BIT(TCCR1A, COM1B0);
             SET_BIT(TCCR1A, COM1B1);
         #elif OC1B_CONFIGURATION == OC1B_SET_ON_COMPARE_MATCH
+            DIO_enumInitializePin(DIO_PORTD, DIO_PIN4, DIO_OUTPUT);
             SET_BIT(TCCR1A, COM1B0);
             SET_BIT(TCCR1A, COM1B1);
         #else
@@ -457,7 +518,7 @@ void TIMER1_voidInit(void)
         SET_BIT(TIMSK, TOIE1); // Enable TIMER1 overflow interrupt
     #elif TIMER1_OVERFLOW_INTERRUPT == DISABLE
         CLR_BIT(TIMSK, TOIE1); // Disable TIMER1 overflow interrupt
-     #else
+    #else
         #error "INVALID TIMER1 OVERFLOW INTERRUPT CONFIGURATION!"
     #endif
 
@@ -512,19 +573,19 @@ void TIMER1_voidICUInit(void)
     #elif TIMER1_ICU_EDGE_SELECT == TIMER1_ICU_RISING_EDGE
         SET_BIT(TCCR1B, ICES1);
     #else
-    #error "INVALID TIMER1 INPUT CAPTURE EDGE SELECTION!"
+        #error "INVALID TIMER1 INPUT CAPTURE EDGE SELECTION!"
     #endif
-    
+
     // Set ICU noise canceler
     #if TIMER1_ICU_NOISE_CANCELER == ENABLE
         SET_BIT(TCCR1B, ICNC1);
     #elif TIMER1_ICU_NOISE_CANCELER == DISABLE
         CLR_BIT(TCCR1B, ICNC1);
     #else
-    #error "INVALID TIMER1 INPUT CAPTURE EDGE SELECTION!"
+        #error "INVALID TIMER1 INPUT CAPTURE EDGE SELECTION!"
     #endif
 
-    // Enable input capture unit interrupt 
+    // Enable input capture unit interrupt
     #if TIMER1_INPUT_CAPTURE_INTERRUPT == ENABLE
         SET_BIT(TIMSK, TICIE1);
     #elif TIMER1_INPUT_CAPTURE_INTERRUPT == DISABLE
@@ -544,7 +605,7 @@ TIMER_errorStatus TIMER1_enumSetTriggerEdge(uint8 icu_edge)
         SET_BIT(TCCR1B, ICES1);
     else
         status = TIMER_INVALID_VALUE;
-    
+
     return status;
 }
 
@@ -570,7 +631,189 @@ TIMER_errorStatus TIMER1_enumGetICRValue(uint16 *icr_value)
     return status;
 }
 
+TIMER_errorStatus TIMER1_enumSetDutyCycleA(uint8 duty_cycle)
+{
+    TIMER_errorStatus status = TIMER_OK;
 
+    if (duty_cycle <= 100)
+    {
+        #if OC1A_CONFIGURATION == OC1A_CLEAR_ON_COMPARE_MATCH
+            #if TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_8BIT || TIMER1_MODE == TIMER1_MODE_FAST_PWM_8BIT
+                OCR1A = (duty_cycle == 0) ? 0 : 2.56 * duty_cycle - 1; // Non-inverting mode
+            #elif TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_9BIT || TIMER1_MODE == TIMER1_MODE_FAST_PWM_9BIT
+                OCR1A = (duty_cycle == 0) ? 0 : 5.12 * duty_cycle - 1; // Non-inverting mode
+            #elif TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_10BIT || TIMER1_MODE == TIMER1_MODE_FAST_PWM_10BIT
+                OCR1A = (duty_cycle == 0) ? 0 : 10.24 * duty_cycle - 1; // Non-inverting mode
+            #else
+            #endif    
+        #elif OC1A_CONFIGURATION == OC1A_SET_ON_COMPARE_MATCH
+            #if TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_8BIT || TIMER1_MODE == TIMER1_MODE_FAST_PWM_8BIT
+                OCR1A = (duty_cycle == 100) ? 100 : 2.56 * (100 - duty_cycle) - 1; // Inverting mode
+            #elif TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_9BIT || TIMER1_MODE == TIMER1_MODE_FAST_PWM_9BIT
+                OCR1A = (duty_cycle == 100) ? 100 : 5.12 * (100 - duty_cycle) - 1; // Inverting mode
+            #elif TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_10BIT || TIMER1_MODE == TIMER1_MODE_FAST_PWM_10BIT
+                OCR1A = (duty_cycle == 100) ? 100 : 10.24 * (100 - duty_cycle) - 1; // Inverting mode
+            #else
+            #endif
+        #else
+            status = TIMER_INVALID_VALUE; // Invalid OC1A configuration for PWM
+        #endif
+    }
+    else
+        status = TIMER_INVALID_VALUE;
+
+    return status;
+}
+
+TIMER_errorStatus TIMER1_enumSetDutyCycleB(uint8 duty_cycle)
+{
+    TIMER_errorStatus status = TIMER_OK;
+
+    if (duty_cycle <= 100)
+    {
+        #if OC1B_CONFIGURATION == OC1B_CLEAR_ON_COMPARE_MATCH
+            #if TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_8BIT
+                OCR1B = (duty_cycle == 0) ? 0 : 2.56 * duty_cycle - 1; // Non-inverting mode
+            #elif TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_9BIT
+                OCR1B = (duty_cycle == 0) ? 0 : 5.12 * duty_cycle - 1; // Non-inverting mode
+            #elif TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_10BIT
+                OCR1B = (duty_cycle == 0) ? 0 : 10.24 * duty_cycle - 1; // Non-inverting mode
+            #else
+            #endif    
+        #elif OC1B_CONFIGURATION == OC1B_SET_ON_COMPARE_MATCH
+            #if TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_8BIT
+                OCR1B = (duty_cycle == 100) ? 100 : 2.56 * (100 - duty_cycle) - 1; // Inverting mode
+            #elif TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_9BIT
+                OCR1B = (duty_cycle == 100) ? 100 : 5.12 * (100 - duty_cycle) - 1; // Inverting mode
+            #elif TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_10BIT
+                OCR1B = (duty_cycle == 100) ? 100 : 10.24 * (100 - duty_cycle) - 1; // Inverting mode
+            #else
+            #endif
+        #else
+            status = TIMER_INVALID_VALUE; // Invalid OC1B configuration for PWM
+        #endif
+    }
+    else
+        status = TIMER_INVALID_VALUE;
+
+    return status;
+}
+
+TIMER_errorStatus TIMER1_enumSetPWM(uint32 freq, uint8 duty_cycle)
+{
+    TIMER_errorStatus status = TIMER_OK;
+
+    if (duty_cycle <= 100 && freq != 0)
+    {
+        #if TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_ICR1
+            uint64 top = F_CPU / (2ULL * TIMER1_PRESCALER * freq);
+            if (top <= 0xFFFF && top >= 2)
+            {
+                ICR1 = top;
+                #if OC1A_CONFIGURATION == OC1A_CLEAR_ON_COMPARE_MATCH
+                    if (duty_cycle == 0)
+                        DIO_enumSetPinValue(DIO_PORTD, DIO_PIN5, DIO_LOW);
+                    else if (duty_cycle == 100)
+                        DIO_enumSetPinValue(DIO_PORTD, DIO_PIN5, DIO_HIGH);
+                    else
+                        OCR1A = top * duty_cycle / 100ULL;
+                #elif OC1A_CONFIGURATION == OC1A_SET_ON_COMPARE_MATCH
+                    if (duty_cycle == 0)
+                        DIO_enumSetPinValue(DIO_PORTD, DIO_PIN5, DIO_HIGH);
+                    else if (duty_cycle == 100)
+                        DIO_enumSetPinValue(DIO_PORTD, DIO_PIN5, DIO_LOW);
+                    else    
+                        OCR1A = (top * (100ULL - duty_cycle)) / 100ULL;
+                #else
+                    status = TIMER_INVALID_CONFIGURATION;
+                #endif
+            }
+            else
+                status = TIMER_INVALID_VALUE;
+        #elif TIMER1_MODE == TIMER1_MODE_PHASE_CORRECT_PWM_OCR1A
+            uint64 top = F_CPU / (2ULL * TIMER1_PRESCALER * freq);
+            if (top <= 0xFFFF && top >= 2)
+            {
+                OCR1A = top;
+                #if OC1B_CONFIGURATION == OC1B_CLEAR_ON_COMPARE_MATCH
+                    if (duty_cycle == 0)
+                        DIO_enumSetPinValue(DIO_PORTD, DIO_PIN4, DIO_LOW);
+                    else if (duty_cycle == 100)
+                        DIO_enumSetPinValue(DIO_PORTD, DIO_PIN4, DIO_HIGH);
+                    else
+                        OCR1B = top * duty_cycle / 100UL;
+                #elif OC1B_CONFIGURATION == OC1B_SET_ON_COMPARE_MATCH
+                    if (duty_cycle == 0)
+                        DIO_enumSetPinValue(DIO_PORTD, DIO_PIN4, DIO_HIGH);
+                    else if (duty_cycle == 100)
+                        DIO_enumSetPinValue(DIO_PORTD, DIO_PIN4, DIO_LOW);
+                    else
+                        OCR1B = (top * (100UL - duty_cycle)) / 100UL;
+                #else
+                    status = TIMER_INVALID_CONFIGURATION;
+                #endif
+            }
+            else
+                status = TIMER_INVALID_VALUE;
+        #elif TIMER1_MODE == TIMER1_MODE_FAST_PWM_ICR1
+            uint64 top = F_CPU / ((uint64)TIMER1_PRESCALER * freq);
+            if (top <= 65536ULL && top >= 5)
+            {
+                ICR1 = top - 1ULL;
+                #if OC1A_CONFIGURATION == OC1A_CLEAR_ON_COMPARE_MATCH
+                    if (duty_cycle == 0)
+                        DIO_enumSetPinValue(DIO_PORTD, DIO_PIN5, DIO_LOW);
+                    else if (duty_cycle == 100)
+                        DIO_enumSetPinValue(DIO_PORTD, DIO_PIN5, DIO_HIGH);
+                    else
+                        OCR1A = (top * duty_cycle) / 100ULL;
+                #elif OC1A_CONFIGURATION == OC1A_SET_ON_COMPARE_MATCH
+                    if (duty_cycle == 0)
+                        DIO_enumSetPinValue(DIO_PORTD, DIO_PIN5, DIO_HIGH);
+                    else if (duty_cycle == 100)
+                        DIO_enumSetPinValue(DIO_PORTD, DIO_PIN5, DIO_LOW);
+                    else
+                        OCR1A = (top * (100ULL - duty_cycle)) / 100ULL;
+                #else
+                    status = TIMER_INVALID_CONFIGURATION;
+                #endif
+            }
+            else
+                status = TIMER_INVALID_VALUE;
+        #elif TIMER1_MODE == TIMER1_MODE_FAST_PWM_OCR1A
+            uint64 top = F_CPU / ((uint64)TIMER1_PRESCALER * freq);
+            if (top <= 65536ULL && top > 4)
+            {
+                OCR1A = top - 1ULL;
+                #if OC1B_CONFIGURATION == OC1B_CLEAR_ON_COMPARE_MATCH
+                    if (duty_cycle == 0)
+                        DIO_enumSetPinValue(DIO_PORTD, DIO_PIN4, DIO_LOW);
+                    else if (duty_cycle == 100)
+                        DIO_enumSetPinValue(DIO_PORTD, DIO_PIN4, DIO_HIGH);
+                    else
+                        OCR1B = (top * duty_cycle) / 100ULL;
+                #elif OC1B_CONFIGURATION == OC1B_SET_ON_COMPARE_MATCH
+                    if (duty_cycle == 0)
+                        DIO_enumSetPinValue(DIO_PORTD, DIO_PIN4, DIO_HIGH);
+                    else if (duty_cycle == 100)
+                        DIO_enumSetPinValue(DIO_PORTD, DIO_PIN4, DIO_LOW);
+                    else
+                        OCR1B = (top * (100ULL - duty_cycle)) / 100ULL;
+                #else
+                    status = TIMER_INVALID_CONFIGURATION;
+                #endif
+            }
+            else
+                status = TIMER_INVALID_VALUE;
+        #else
+            status = TIMER_INVALID_MODE;
+        #endif
+    }
+    else
+        status = TIMER_INVALID_VALUE;
+
+    return status;
+}
 
 void TIMER2_voidInit(void)
 {
@@ -644,7 +887,7 @@ void TIMER2_voidInit(void)
             SET_BIT(local_TCCR2, COM20);
             SET_BIT(local_TCCR2, COM21);
         #else
-        #error "INVALID OC2 PIN CONFIGURATION"
+            #error "INVALID OC2 PIN CONFIGURATION"
         #endif
 
     #elif TIMER2_MODE == TIMER2_MODE_PHASE_CORRECT_PWM
@@ -700,7 +943,7 @@ void TIMER2_voidInit(void)
         #else
             #error "INVALID OC2 PIN CONFIGURATION"
         #endif
-        
+
     #else
         #error "INVALID TIMER2 MODE!"
     #endif
@@ -730,7 +973,6 @@ void TIMER2_voidInit(void)
     #else
         #error "INVALID TIMER2 COMPARE MATCH INTERRUPT CONFIGURATION!"
     #endif
-    
 
     // Enable global interrupt
     SET_BIT(SREG, 7);
@@ -745,7 +987,6 @@ void TIMER2_voidSetPreload(uint8 timer_preload)
     #else
         TCNT2 = timer_preload;
     #endif
-        
 }
 
 void TIMER2_voidSetCTC(uint8 value)
@@ -778,7 +1019,25 @@ void TIMER2_voidStopTimer(void)
     CLR_BIT(TCCR2, CS22);
 }
 
+TIMER_errorStatus TIMER2_enumSetDutyCycle(uint8 duty_cycle)
+{
+    TIMER_errorStatus status = TIMER_OK;
 
+    if (duty_cycle <= 100)
+    {
+        #if OC2_CONFIGURATION == OC2_CLEAR_ON_COMPARE_MATCH
+            OCR2 = (duty_cycle == 0) ? 0 : 2.56 * duty_cycle - 1; // Non-inverting mode
+        #elif OC2_CONFIGURATION == OC2_SET_ON_COMPARE_MATCH
+            OCR2 = (duty_cycle == 100) ? 100 : 2.56 * (100 - duty_cycle) - 1; // Inverting mode
+        #else
+            status = TIMER_INVALID_VALUE; // Invalid OC0 configuration for PWM
+        #endif
+    }
+    else
+        status = TIMER_INVALID_VALUE;
+
+    return status;
+}
 
 TIMER_errorStatus TIMER_enumSetCallBack(void (*ptr)(void), uint8 timer_id)
 {
@@ -795,7 +1054,6 @@ TIMER_errorStatus TIMER_enumSetCallBack(void (*ptr)(void), uint8 timer_id)
     return status;
 }
 
-
 void TIMER_voidWDTSleep(void)
 {
     // Clear watchdog timer prescaler
@@ -803,15 +1061,15 @@ void TIMER_voidWDTSleep(void)
     CLR_BIT(WDTCR, WDP1);
     CLR_BIT(WDTCR, WDP2);
 
-    #if WDT_PRESCALER >= WDT_PRESCALER_16_3_MS && WDT_PRESCALER <= WDT_PRESCALER_2_1_S
-        // Set watchdog timer prescaler
-        WDTCR |= WDT_PRESCALER;
-    #else
-        #error "INVALID WATCHDOG TIMER PRESCALER!"
-    #endif
+#if WDT_PRESCALER >= WDT_PRESCALER_16_3_MS && WDT_PRESCALER <= WDT_PRESCALER_2_1_S
+    // Set watchdog timer prescaler
+    WDTCR |= WDT_PRESCALER;
+#else
+#error "INVALID WATCHDOG TIMER PRESCALER!"
+#endif
 }
 
-void TIMER_voidWDTEnable (void)
+void TIMER_voidWDTEnable(void)
 {
     SET_BIT(WDTCR, WDE); // Enable watchdog timer
 }
@@ -822,8 +1080,6 @@ void TIMER_voidWDTDisable(void)
     WDTCR |= (1 << WDTOE) | (1 << WDE);
     WDTCR = 0;
 }
-
-
 
 // TIMER2 output compare match ISR
 void __vector_4(void) __attribute__((signal));

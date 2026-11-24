@@ -23,7 +23,7 @@
 #define COM00 4
 #define COM01 5
 #define WGM00 6
-#define FOC0 
+#define FOC0 7
 
 // TIMER1 Registers
 #define TCCR1A *((volatile uint8 *)0x4F)
